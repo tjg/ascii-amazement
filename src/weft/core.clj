@@ -15,33 +15,37 @@
 
 (defn collapse [combine-fn vectors]
   (reduce (fn [acc [k v]]
-            (assoc acc k (combine-fn (get acc k [])
+            (assoc acc k (combine-fn (acc k [])
                                      v)))
           {}
           vectors))
 
-(defn suffixes [titles]
-  (collapse conj
-            (mapcat identity
-                    (for [t titles]
-                      (for [x (next (range (count t)))]
-                        [(subvec t x) t])))))
+(defn suffixes [s]
+  (loop [sub (next s)
+         acc []]
+    (if (seq sub)
+      (recur (next sub)
+             (conj acc (vec sub)))
+      acc)))
 
-(defn prefixes [titles]
-  (collapse conj
-            (mapcat identity
-                    (for [t titles]
-                      (for [x (butlast (map inc (range (count t))))]
-                        [(subvec t 0 x) t])))))
+(defn prefixes [s]
+  (->> s reverse suffixes (map reverse) (map vec)))
+
+(defn prefix-or-suffix-map [prefixes-or-suffixes-fn titles]
+  (->> titles
+       (mapcat (fn [t]
+                 (->> (prefixes-or-suffixes-fn t)
+                      (map (fn [s] [s t])))))
+       (collapse conj)))
 
 (defn adjacency-graph [titles]
-  (let [ps (prefixes titles)
-        ss (suffixes titles)]
-    (collapse concat
-              (mapcat identity
-                      (for [[suffix ts-with-suffix] ss :when (ps suffix)]
-                        (for [t ts-with-suffix]
-                          [t (ps suffix)]))))))
+  (let [ps (prefix-or-suffix-map prefixes titles)
+        ss (prefix-or-suffix-map suffixes titles)]
+    (->> (for [[suffix ts-with-suffix] ss :when (ps suffix)]
+           (for [t ts-with-suffix]
+             [t (ps suffix)]))
+         (mapcat identity)
+         (collapse concat))))
 
 (defonce g (graph/graph (adjacency-graph lines)))
 
