@@ -35,7 +35,7 @@
   (->> titles
        (mapcat (fn [t]
                  (->> (prefixes-or-suffixes-fn t)
-                      (map (fn [s] [s t])))))
+                      (map (fn [s] [s (str/join " " t)])))))
        (collapse conj)))
 
 (defn adjacency-graph [titles]
