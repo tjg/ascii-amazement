@@ -2,10 +2,11 @@
   (:require [clojure.pprint :as pprint :refer [pprint cl-format]]
             [clojure.java.io :as io]
             [clojure.string :as str]
+            [clojure.set :as set]
             [loom.graph :as graph]
             [loom.alg :as graph-alg]))
 
-(set! *print-length* 30)
+(set! *print-length* 10)
 
 (defonce lines
   (with-open [rdr (io/reader "resources/movies3.txt")]
@@ -49,11 +50,16 @@
 
 (defonce g (graph/digraph (adjacency-graph lines)))
 
-(let [good-nodes (->> g
-                      graph-alg/connected-components
-                      (sort-by count)
-                      reverse
-                      first)]
-  (->> (graph/subgraph g good-nodes)
-       graph-alg/bf-traverse
-       float))
+(comment
+ (let [good-nodes (->> g
+                       graph-alg/connected-components
+                       (sort-by count)
+                       reverse
+                       first)]
+   (-> (graph/subgraph g good-nodes)
+       (graph-alg/bf-path "JAWS 2" "NIGHT AT THE MUSEUM")
+       pprint))
+
+ (pprint (graph-alg/bf-path g "JAWS 2" "THE HOUSE OF MIRTH"))
+
+ (pprint (graph-alg/bf-path g "JAWS 2" "NIGHT AT THE MUSEUM")))
