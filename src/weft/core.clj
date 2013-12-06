@@ -47,7 +47,7 @@
          (mapcat identity)
          (collapse concat))))
 
-(defonce g (graph/graph (adjacency-graph lines)))
+(defonce g (graph/digraph (adjacency-graph lines)))
 
 (let [good-nodes (->> g
                       graph-alg/connected-components
