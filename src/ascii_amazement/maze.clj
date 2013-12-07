@@ -109,8 +109,7 @@
           new-pos (coordinate+ pos [2 0])]
       (if (and (= step-0 \space)
                (= step-1 \space)
-               (or (= step-2 \space)
-                   (= step-2 \_)))
+               (#{\space \_} step-2))
         new-pos
         false))
     (catch Exception e
@@ -135,10 +134,8 @@
           step-1 (char-at maze (coordinate+ pos [0 -1]))
           step-2 (char-at maze (coordinate+ pos [0 -2]))
           new-pos (coordinate+ pos [0 -2])]
-      (if (and (or (= step-1 \space)
-                   (= step-1 \_))
-               (or (= step-2 \space)
-                   (= step-2 \_)))
+      (if (and (#{\space \_} step-1)
+               (#{\space \_} step-2))
         new-pos
         false))
     (catch Exception e
@@ -150,10 +147,8 @@
           step-1 (char-at maze (coordinate+ pos [0 1]))
           step-2 (char-at maze (coordinate+ pos [0 2]))
           new-pos (coordinate+ pos [0 2])]
-      (if (and (or (= step-1 \space)
-                   (= step-1 \_))
-               (or (= step-2 \space)
-                   (= step-2 \_)))
+      (if (and (#{\space \_} step-1)
+               (#{\space \_} step-2))
         new-pos
         false))
     (catch Exception e
