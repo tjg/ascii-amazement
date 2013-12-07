@@ -101,58 +101,42 @@
   (nth (nth maze line-nr)
        idx))
 
-(defn- down [maze pos]
+(defn- move [maze pos step-1-offset step-2-offset test-steps-for-legality]
   (try
     (let [step-0 (char-at maze pos)
-          step-1 (char-at maze (coordinate+ pos [1 0]))
-          step-2 (char-at maze (coordinate+ pos [2 0]))
-          new-pos (coordinate+ pos [2 0])]
-      (if (and (= step-0 \space)
-               (= step-1 \space)
-               (#{\space \_} step-2))
+          step-1 (char-at maze (coordinate+ pos step-1-offset))
+          step-2 (char-at maze (coordinate+ pos step-2-offset))
+          new-pos (coordinate+ pos step-2-offset)]
+      (if (test-steps-for-legality step-0 step-1 step-2)
         new-pos
         false))
     (catch Exception e
       false)))
+
+(defn- down [maze pos]
+  (move maze pos [1 0] [2 0]
+        (fn [step-0 step-1 step-2]
+          (and (= step-0 \space)
+               (= step-1 \space)
+               (#{\space \_} step-2)))))
 
 (defn- up [maze pos]
-  (try
-    (let [step-0 (char-at maze pos)
-          step-1 (char-at maze (coordinate+ pos [-1 0]))
-          step-2 (char-at maze (coordinate+ pos [-2 0]))
-          new-pos (coordinate+ pos [-2 0])]
-      (if (and (= step-1 \space)
-               (= step-2 \space))
-        new-pos
-        false))
-    (catch Exception e
-      false)))
+  (move maze pos [-1 0] [-2 0]
+        (fn [step-0 step-1 step-2]
+          (and (= step-1 \space)
+               (= step-2 \space)))))
 
 (defn- left [maze pos]
-  (try
-    (let [step-0 (char-at maze pos)
-          step-1 (char-at maze (coordinate+ pos [0 -1]))
-          step-2 (char-at maze (coordinate+ pos [0 -2]))
-          new-pos (coordinate+ pos [0 -2])]
-      (if (and (#{\space \_} step-1)
-               (#{\space \_} step-2))
-        new-pos
-        false))
-    (catch Exception e
-      false)))
+  (move maze pos [0 -1] [0 -2]
+        (fn [step-0 step-1 step-2]
+          (and (#{\space \_} step-1)
+               (#{\space \_} step-2)))))
 
 (defn- right [maze pos]
-  (try
-    (let [step-0 (char-at maze pos)
-          step-1 (char-at maze (coordinate+ pos [0 1]))
-          step-2 (char-at maze (coordinate+ pos [0 2]))
-          new-pos (coordinate+ pos [0 2])]
-      (if (and (#{\space \_} step-1)
-               (#{\space \_} step-2))
-        new-pos
-        false))
-    (catch Exception e
-      false)))
+  (move maze pos [0 1] [0 2]
+        (fn [step-0 step-1 step-2]
+          (and (#{\space \_} step-1)
+               (#{\space \_} step-2)))))
 
 (defn possible-moves [maze pos]
   (let [moves (->> [up down left right]
