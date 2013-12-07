@@ -48,7 +48,6 @@
           step-1 (char-at maze (coordinate+ pos [1 0]))
           step-2 (char-at maze (coordinate+ pos [2 0]))
           new-pos (coordinate+ pos [2 0])]
-      (println [step-0 step-1 step-2])
       (if (and (= step-0 \space)
                (= step-1 \space)
                (or (= step-2 \space)
@@ -64,7 +63,6 @@
           step-1 (char-at maze (coordinate+ pos [-1 0]))
           step-2 (char-at maze (coordinate+ pos [-2 0]))
           new-pos (coordinate+ pos [-2 0])]
-      (println [step-0 step-1 step-2])
       (if (and (= step-1 \space)
                (= step-2 \space))
         new-pos
@@ -78,7 +76,6 @@
           step-1 (char-at maze (coordinate+ pos [0 -1]))
           step-2 (char-at maze (coordinate+ pos [0 -2]))
           new-pos (coordinate+ pos [0 -2])]
-      (println [step-0 step-1 step-2])
       (if (and (= step-1 \space)
                (= step-2 \space))
         new-pos
@@ -92,7 +89,6 @@
           step-1 (char-at maze (coordinate+ pos [0 1]))
           step-2 (char-at maze (coordinate+ pos [0 2]))
           new-pos (coordinate+ pos [0 2])]
-      (println [step-0 step-1 step-2])
       (if (and (= step-1 \space)
                (= step-2 \space))
         new-pos
