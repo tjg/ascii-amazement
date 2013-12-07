@@ -3,6 +3,9 @@
             [clojure.java.io :as io]))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Input
+
 (defn read-maze
   "Read in maze object from filesystem at path."
   [path]
@@ -10,6 +13,10 @@
     (->> (line-seq rdr)
          doall
          (into (vector)))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Output
 
 (defn- divisible-by-3? [n]
   (= 0 (mod n 3)))
@@ -42,6 +49,10 @@
                                             (map second)
                                             (into #{}))]
                    (println (format-path line indices-on-line))))])))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Maze operations
 
 (defn- get-coordinates [lines marker coordinate-translation]
   (let [[line-nr idx] (->> (map (fn [line-nr]

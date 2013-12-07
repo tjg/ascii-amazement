@@ -3,6 +3,9 @@
             [clojure.set    :as set]))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Graph search mechanism
+
 (defn- make-node [item parent]
   {:parent parent
    :item item})
@@ -28,6 +31,10 @@
                           (#(into (pop frontier) (apply queue-constructor %))))
                      (set/union explored #{(:item current-node)} (set children))))))))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Graph searches
+
 (defn depth-first-search
   "Perform graph DFS from start until (goal? vertex) is true or
    vertices are exhausted.
@@ -43,8 +50,12 @@
 (defn- breadth-first-search [start goal? children-fn]
   (search queue start goal? children-fn))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Operate on solution
+
 (defn path
-  "Given a solution vertex from depth-first-search or
+  "Given a solution node returned by depth-first-search or
    breadth-first-search, returns a seq of that solution vertex and its
    ancestors, in last-visited-first order."
   [node]

@@ -12,6 +12,10 @@
     (->> (maze/format-maze maze solution)
          (spit out-path))))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Commandline entrypoint
+
 (defn -main [& args]
   (let [[options args banner]
         (cli args
