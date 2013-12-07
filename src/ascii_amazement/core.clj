@@ -32,7 +32,8 @@
             (println "Error:" (:input options) "doesn't exist.")
             (System/exit 74))
 
-          (not (.exists (.getParentFile (java.io.File. (:output options)))))
+          (and (.getParentFile (java.io.File. (:output options)))
+               (not (.exists (.getParentFile (java.io.File. (:output options))))))
           (binding [*out* *err*]
             (println "Error: output directory"
                      (.getParent (java.io.File. (:output options)))
