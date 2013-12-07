@@ -1,10 +1,5 @@
 (ns ascii-amazement.search
-  "Graph searches.
-
-   Main functions:
-   * Depth first search
-   * Breadth first search
-   * Get ancestors of graph traversal."
+  "Depth-first search."
   (:require [clojure.pprint :as pprint :refer [pprint cl-format]]
             [clojure.set    :as set]))
 
@@ -37,30 +32,7 @@
                           (#(into (pop frontier) (apply queue-constructor %))))
                      (set/union explored #{(:item current-node)} (set children))))))))
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Graph searches
-
-(defn depth-first-search
-  "Perform graph DFS from start until (goal? vertex) is true or
-   vertices are exhausted.
-
-   (children-fn vertex) return successor vertices to search. Children
-   are visited in reverse order, so the last child returned by
-   children-fn will be the next to be visited.
-
-   On infinite graphs, this search isn't guaranteed to terminate."
-  [start goal? children-fn]
-  (search list start goal? children-fn))
-
-(defn- breadth-first-search [start goal? children-fn]
-  (search queue start goal? children-fn))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Operate on solution
-
-(defn path
+(defn- path
   "Given a solution node returned by depth-first-search or
    breadth-first-search, returns a seq of that solution vertex and its
    ancestors, in last-visited-first order."
@@ -71,3 +43,24 @@
       acc
       (recur (:parent curr)
              (conj acc (:item curr))))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Graph searches
+
+(defn depth-first-search
+  "Perform graph DFS from start until (goal? vertex) is true or
+   vertices are exhausted. Returns a seq:
+     [goal-vertex, parent-n, ..., parent-2, parent-1, start-vertex]
+
+   If goal isn't achieved, returns an empty sequence. On infinite
+   graphs, this search isn't guaranteed to terminate.
+
+   (children-fn vertex) should return the next vertices to
+   search. Children are visited in reverse order (so the last child
+   returned by children-fn will be the next to be visited.)"
+  [start goal? children-fn]
+  (path (search list start goal? children-fn)))
+
+(defn- breadth-first-search [start goal? children-fn]
+  (path (search queue start goal? children-fn)))

@@ -2,9 +2,14 @@
   "Maze operations.
 
    Main functions:
-   * I/O
-   * representing maze
-   * moving through maze legally"
+   * Reading a maze from the filesystem. (read-maze)
+   * Printing maze and a successful path through it. (format-maze)
+   * Start and end coordinates. (start-coordinates and end-coordinates)
+   * Moving through maze legally. (possible-moves)
+
+  ITA's mazes, and sample solutions, seem to imply a peculiar motion
+  through the maze. When traversing it, we'll take two character-sized
+  steps. When printing it, we'll portray a kind of hopping."
   (:require [clojure.pprint :as pprint :refer [pprint cl-format]]
             [clojure.java.io :as io]))
 
