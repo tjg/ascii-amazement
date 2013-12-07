@@ -2,8 +2,7 @@
   (:require [clojure.pprint :as pprint :refer [pprint cl-format]]
             [clojure.set    :as set]
             [loom.graph     :as graph]
-            [loom.alg       :as graph-alg])
-  (:refer-clojure :exclude [ancestors]))
+            [loom.alg       :as graph-alg]))
 
 (defn make-node [item parent]
   {:parent parent
@@ -36,7 +35,7 @@
 (defn breadth-first-search [start goal? children-fn]
   (search queue start goal? children-fn))
 
-(defn ancestors [node]
+(defn path [node]
   (loop [curr node
          acc []]
     (if (empty? curr)
@@ -46,6 +45,6 @@
 
 
 (comment
-  (ancestors (depth-first-search 0 #(= % 10) #(list (inc %))))
-  (ancestors (depth-first-search 0 #(= % 10)
-                                 #(list (inc %) (+ 3 %) (+ 5 %)))))
+  (path (depth-first-search 0 #(= % 10) #(list (inc %))))
+  (path (depth-first-search 0 #(= % 10)
+                            #(list (inc %) (+ 3 %) (+ 5 %)))))
