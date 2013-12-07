@@ -3,17 +3,18 @@
             [weft.search :as search]
             [weft.io :as io]))
 
-(search/depth-first-search
- (io/start-coordinates io/test-maze)
- (fn [pos]
-   (println "goal test:" pos)
-   (let [[line-offset idx-offset]
-         (io/coordinate- pos (io/end-coordinates io/test-maze))]
-     (and (>= 1 (Math/abs line-offset))
-          (>= 1 (Math/abs idx-offset)))))
- (fn [pos]
-   (println "children:" pos)
-   (io/children io/test-maze pos)))
+(defn solve [maze]
+  (search/depth-first-search (io/start-coordinates maze)
+                             (fn [pos]
+                               (let [[line-offset idx-offset]
+                                     (io/coordinate- pos (io/end-coordinates maze))]
+                                 (and (>= 1 (Math/abs line-offset))
+                                      (>= 1 (Math/abs idx-offset)))))
+                             (fn [pos]
+                               (io/children maze pos))))
 
-;;(io/children io/test-maze [40 12])
-
+(comment
+  (let [solution (solve io/test-maze)]
+    (println (count (search/path solution)))
+    (doseq [pos (search/path solution)]
+      (println pos))))
