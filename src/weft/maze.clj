@@ -62,28 +62,28 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Maze operations
 
-(defn- get-coordinates [lines marker coordinate-translation]
+(defn- get-coordinates [maze-lines marker coordinate-translation]
   (let [[line-nr idx] (->> (map (fn [line-nr]
-                                  [line-nr (.indexOf (nth lines line-nr)
+                                  [line-nr (.indexOf (nth maze-lines line-nr)
                                                      marker)])
-                                (range (count lines)))
+                                (range (count maze-lines)))
                            (filter (fn [[line-nr idx]]
                                      (not= idx -1)))
                            first)
         [line-nr idx] (coordinate-translation [line-nr idx])]
     [line-nr idx]))
 
-(defn start-coordinates [lines]
+(defn start-coordinates [maze-lines]
   (let [start-marker "Start|"]
-    (get-coordinates lines
+    (get-coordinates maze-lines
                      start-marker
                      (fn [[line-nr idx]]
                        [(dec line-nr)
                         (+ idx (count start-marker))]))))
 
-(defn end-coordinates [lines]
+(defn end-coordinates [maze-lines]
   (let [start-marker "ITA"]
-    (get-coordinates lines
+    (get-coordinates maze-lines
                      start-marker
                      (fn [[line-nr idx]]
                        [(inc line-nr) (dec idx)]))))
