@@ -66,6 +66,27 @@
     (catch Exception e
       false)))
 
+(defn left [maze pos]
+  (try
+    (let [step-0 (char-at maze pos)
+          step-1 (char-at maze (coordinate+ pos [0 -1]))
+          step-2 (char-at maze (coordinate+ pos [0 -2]))]
+      (println [step-0 step-1 step-2])
+      (and (= step-1 \space)
+           (= step-2 \space)))
+    (catch Exception e
+      false)))
+
+(defn right [maze pos]
+  (try
+    (let [step-0 (char-at maze pos)
+          step-1 (char-at maze (coordinate+ pos [0 1]))
+          step-2 (char-at maze (coordinate+ pos [0 2]))]
+      (println [step-0 step-1 step-2])
+      (and (= step-1 \space)
+           (= step-2 \space)))
+    (catch Exception e
+      false)))
 (def test-maze-path "resources/mazes/input1.txt")
 
 (def test-maze (read-maze test-maze-path))
