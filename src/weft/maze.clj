@@ -16,13 +16,14 @@
 (defn print-path [line indices]
   (with-out-str
     (doseq [idx (range (count line))]
-      (if (or (and (or (divisible-by-3? idx)
-                       (divisible-by-3? (dec idx)))
+      (if (or (and (divisible-by-3? idx)
                    (or (indices idx)
                        (indices (dec idx))
                        (indices (inc idx))))
               (and (divisible-by-3? (dec idx))
-                   (indices (dec (dec idx)))))
+                   (or (indices idx)
+                       (indices (dec idx))
+                       (indices (dec (dec idx))))))
         (print "X")
         (print (.charAt line idx))))))
 
