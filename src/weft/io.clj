@@ -35,6 +35,9 @@
                      (fn [[line-nr idx]]
                        [(inc line-nr) (dec idx)]))))
 
+(defn coordinate- [[y0 x0] [y1 x1]]
+  [(- y0 y1) (- x0 x1)])
+
 (defn coordinate+ [[y0 x0] [y1 x1]]
   [(+ y0 y1) (+ x0 x1)])
 
