@@ -5,7 +5,7 @@
 (set! *print-length* 10)
 
 (defn read-maze [path]
-  (with-open [rdr (io/reader "resources/mazes/input1.txt")]
+  (with-open [rdr (io/reader path)]
     (->> (line-seq rdr)
          doall
          (into (vector)))))
@@ -36,12 +36,21 @@
                        [(inc line-nr) (dec idx)]))))
 
 
+(def test-maze-path "resources/mazes/input1.txt")
+
+(def test-maze (read-maze test-maze-path))
+
 (comment
-  (doseq [line (read-maze nil)]
+  (doseq [line (read-maze test-maze-path)]
     (println line))
 
-  (->> (read-maze nil)
+  (->> (read-maze test-maze-path)
        start-coordinates)
 
-  (->> (read-maze nil)
-       end-coordinates))
+  (->> (read-maze test-maze-path)
+       end-coordinates)
+
+  (children test-maze (start-coordinates test-maze)))
+
+(wall? test-maze [1 34])
+(wall? test-maze [0 34])
