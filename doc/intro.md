@@ -23,11 +23,11 @@ Start|__|_____|_____|
 ```
 
 One curve-ball is the peculiar steps through the maze. It looks like
-someone's hopping through it. Perhaps we don't need to copy that
+someone's hopping through it. (Perhaps we don't need to copy that
 style, but it certainly makes testing easier, since we can use ITA's
-sample solutions unmodified.
+sample solutions unmodified.)
 
-Also, you move through visual whitespace (walls are `|` or `_`). But
+Also, you move through visual whitespace. (Walls are `|` or `_`.) But
 actually, you can conceivably stand on a `_`, unlike `|`. You just
 can't legally walk through it.
 
