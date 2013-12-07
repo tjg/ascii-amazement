@@ -34,11 +34,16 @@ can't legally walk through it.
 
 **Why is there also a BFS which isn't used?**
 
+*[BFS = breadth-first search, DFS = depth-first search]*
+
 This is a puzzle, so it's in the sprit of fun: Whenever I implement
 DFS, I like to see that BFS is the same, except for using a queue
 instead of a stack. (I don't know why; it's just nice to see.)
 
 So, this is a benign exception of my rule to eliminate dead code.
+
+As for preferring DFS, it has better memory consumption than BFS and
+all mazes are finite.
 
 
 **Multiple mazes in one file?**
