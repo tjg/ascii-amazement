@@ -22,9 +22,23 @@
              ["-h" "--help" "Show help" :default false]
              ["-i" "--input" "Input maze path" :default false]
              ["-o" "--output" "Output maze path" :default false])]
-    (if (or (:help options)
-            (not (:input options))
-            (not (:output options)))
-      (println banner)
-      (write-solution (:input options) (:output options))))
+    (cond (or (:help options)
+              (not (:input options))
+              (not (:output options)))
+          (println banner)
+
+          (not (.exists (java.io.File. (:input options))))
+          (binding [*out* *err*]
+            (println "Error:" (:input options) "doesn't exist.")
+            (System/exit 74))
+
+          (not (.exists (.getParentFile (java.io.File. (:output options)))))
+          (binding [*out* *err*]
+            (println "Error: output directory"
+                     (.getParent (java.io.File. (:output options)))
+                     "doesn't exist.")
+            (System/exit 74))
+
+          :else
+          (write-solution (:input options) (:output options))))
   (flush))
