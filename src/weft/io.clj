@@ -35,6 +35,36 @@
                      (fn [[line-nr idx]]
                        [(inc line-nr) (dec idx)]))))
 
+(defn coordinate+ [[y0 x0] [y1 x1]]
+  [(+ y0 y1) (+ x0 x1)])
+
+(defn char-at [maze [line-nr idx]]
+  (nth (nth maze line-nr)
+       idx))
+
+(defn down [maze pos]
+  (try
+    (let [step-0 (char-at maze pos)
+          step-1 (char-at maze (coordinate+ pos [1 0]))
+          step-2 (char-at maze (coordinate+ pos [2 0]))]
+      (println [step-0 step-1 step-2])
+      (and (= step-0 \space)
+           (= step-1 \space)
+           (or (= step-2 \space)
+               (= step-2 \_))))
+    (catch Exception e
+      false)))
+
+(defn up [maze pos]
+  (try
+    (let [step-0 (char-at maze pos)
+          step-1 (char-at maze (coordinate+ pos [-1 0]))
+          step-2 (char-at maze (coordinate+ pos [-2 0]))]
+      (println [step-0 step-1 step-2])
+      (and (= step-1 \space)
+           (= step-2 \space)))
+    (catch Exception e
+      false)))
 
 (def test-maze-path "resources/mazes/input1.txt")
 
