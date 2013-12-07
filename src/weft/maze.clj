@@ -10,6 +10,32 @@
          doall
          (into (vector)))))
 
+(defn divisible-by-3? [n]
+  (= 0 (mod n 3)))
+
+(defn print-path [line indices]
+  (with-out-str
+    (doseq [idx (range (count line))]
+      (if (or (and (or (divisible-by-3? idx)
+                       (divisible-by-3? (dec idx)))
+                   (or (indices idx)
+                       (indices (dec idx))
+                       (indices (inc idx))))
+              (and (divisible-by-3? (dec idx))
+                   (indices (dec (dec idx)))))
+        (print "X")
+        (print (.charAt line idx))))))
+
+(defn write-maze [filepath maze path-through-maze]
+  (doseq [line-pos (range (count maze))]
+    (let [line (maze line-pos)
+          indices-on-line (->> path-through-maze
+                               (filter (fn [[lp idx]]
+                                         (= lp line-pos)))
+                               (map second)
+                               (into #{}))]
+      (println (print-path line indices-on-line)))))
+
 (defn get-coordinates [lines marker coordinate-translation]
   (let [[line-nr idx] (->> (map (fn [line-nr]
                                   [line-nr (.indexOf (nth lines line-nr)
