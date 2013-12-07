@@ -87,6 +87,38 @@
            (= step-2 \space)))
     (catch Exception e
       false)))
+
+
+(comment
+  (defn wall? [maze [line-nr idx]]
+    (try
+      (not (str/blank? (str (char-at [line-nr idx]))))
+      (catch Exception e
+        true)))
+
+  (defn move [maze location step1 step2]
+    (let [first-step (coordinate+ location step1)]
+      (if (wall? maze first-step)
+        nil
+        (let [second-step (coordinate+ first-step step2)]
+          (if (wall? maze second-step)
+            nil
+            second-step)))))
+
+  (defn children [lines [line-nr idx]]
+    (let [steps [[[0 1]  [0 2]]
+                 [[0 -1] [0 -2]]
+                 [[1 0]  [2 0]]
+                 [[-1 0] [-2 0]]]
+          moves (map #(apply move lines [line-nr idx] %) steps)]
+      moves))
+
+  #_(defn children [lines [line-nr idx]]
+      (let [offsets [[0 2] [0 -2] [2 0] [-2 0]]
+            moves (map #(coordinate+ [line-nr idx] %) offsets)]
+        (filter moves ))))
+
+
 (def test-maze-path "resources/mazes/input1.txt")
 
 (def test-maze (read-maze test-maze-path))
