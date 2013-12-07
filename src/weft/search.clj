@@ -1,8 +1,8 @@
 (ns weft.search
   (:require [clojure.pprint :as pprint :refer [pprint cl-format]]
-            [clojure.set :as set]
-            [loom.graph :as graph]
-            [loom.alg :as graph-alg])
+            [clojure.set    :as set]
+            [loom.graph     :as graph]
+            [loom.alg       :as graph-alg])
   (:refer-clojure :exclude [ancestors]))
 
 (defn make-node [item parent]
@@ -16,9 +16,6 @@
   (loop [frontier (queue-constructor (make-node start nil))
          explored #{}]
     (let [current-node (peek frontier)]
-      (pprint [(:item current-node)
-               (map :item frontier)
-               explored])
       (cond (not frontier)
             nil
 
@@ -47,7 +44,8 @@
       (recur (:parent curr)
              (conj acc (:item curr))))))
 
-#_(ancestors (depth-first-search 0 #(= % 10) #(list (inc %))))
 
-(ancestors (depth-first-search 0 #(= % 10)
-                               #(list (inc %) (+ 3 %) (+ 5 %))))
+(comment
+  (ancestors (depth-first-search 0 #(= % 10) #(list (inc %))))
+  (ancestors (depth-first-search 0 #(= % 10)
+                                 #(list (inc %) (+ 3 %) (+ 5 %)))))
