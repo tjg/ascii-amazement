@@ -18,4 +18,7 @@
   (let [solution (solve maze/test-maze)]
     (println (count (search/path solution)))
     (doseq [pos (search/path solution)]
-      (println pos))))
+      (println pos)))
+
+  (let [path (search/path (solve maze/test-maze))]
+    (maze/write-maze nil maze/test-maze path)))
