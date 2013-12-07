@@ -60,7 +60,7 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Maze operations
+;;; Positions and movement
 
 (defn- get-coordinates [maze-lines marker coordinate-translation]
   (let [[line-nr idx] (->> (range (count maze-lines))
