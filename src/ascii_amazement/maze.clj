@@ -58,11 +58,10 @@
   (with-out-str
     (let [path-per-line-nr (group-by first path-through-maze)
           maze (doseq [line-nr (range (count maze))]
-                 (let [line (maze line-nr)
-                       column-nrs (->> (path-per-line-nr line-nr)
+                 (let [column-nrs (->> (path-per-line-nr line-nr)
                                        (map second)
                                        (into #{}))]
-                   (println (format-path line column-nrs))))])))
+                   (println (format-path (maze line-nr) column-nrs))))])))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
