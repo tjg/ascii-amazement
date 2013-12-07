@@ -21,4 +21,4 @@
       (println pos)))
 
   (let [path (search/path (solve maze/test-maze))]
-    (maze/write-maze nil maze/test-maze path)))
+    (maze/write-maze "test-output.txt" maze/test-maze path)))
