@@ -1,8 +1,8 @@
-(ns weft.solve
+(ns ascii-amazement.solve
   "Solves a given maze."
   (:require [clojure.pprint :as pprint :refer [pprint cl-format]]
-            [weft.search :as search]
-            [weft.maze :as maze]))
+            [ascii-amazement.search :as search]
+            [ascii-amazement.maze :as maze]))
 
 
 (defn solve

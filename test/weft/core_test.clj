@@ -1,7 +1,7 @@
-(ns weft.core-test
+(ns ascii-amazement.core-test
   (:use midje.sweet)
-  (:require [weft.core :as core]
-            [weft.maze :as maze]))
+  (:require [ascii-amazement.core :as core]
+            [ascii-amazement.maze :as maze]))
 
 (facts "Solves all the test mazes which ITA provided"
   (doseq [n (range 1 7)]

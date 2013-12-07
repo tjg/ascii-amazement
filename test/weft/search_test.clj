@@ -1,6 +1,6 @@
-(ns weft.core-test
+(ns ascii-amazement.core-test
   (:use midje.sweet)
-  (:require [weft.search :as search]))
+  (:require [ascii-amazement.search :as search]))
 
 (fact "Depth-first search works"
    (search/path (search/depth-first-search 0 #(= % 10) #(list (inc %))))

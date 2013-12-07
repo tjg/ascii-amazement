@@ -1,8 +1,8 @@
-(ns weft.core
+(ns ascii-amazement.core
   (:gen-class)
   (:require [clojure.pprint :as pprint :refer [pprint cl-format]]
-            [weft.solve :as solve]
-            [weft.maze :as maze]
+            [ascii-amazement.solve :as solve]
+            [ascii-amazement.maze :as maze]
             [clojure.tools.cli :as cli :refer [cli]]))
 
 

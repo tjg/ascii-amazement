@@ -1,4 +1,4 @@
-(ns weft.maze
+(ns ascii-amazement.maze
   "Maze operations.
 
    Main functions:

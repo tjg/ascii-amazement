@@ -1,4 +1,4 @@
-(ns weft.search
+(ns ascii-amazement.search
   "Graph searches.
 
    Main functions:
