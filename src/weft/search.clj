@@ -1,8 +1,6 @@
 (ns weft.search
   (:require [clojure.pprint :as pprint :refer [pprint cl-format]]
-            [clojure.set    :as set]
-            [loom.graph     :as graph]
-            [loom.alg       :as graph-alg]))
+            [clojure.set    :as set]))
 
 (defn make-node [item parent]
   {:parent parent
