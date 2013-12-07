@@ -29,7 +29,7 @@ Get help:
 ```
 
 
-Solve one of ITA's supplied puzzles; save it to `test-output.txt`:
+Solve one of ITA's sample puzzles; save it to `test-output.txt`:
 
 ```bash
 ~/ascii-amazement$ lein run -- -i resources/mazes/input1.txt -o test-output.txt
@@ -41,6 +41,14 @@ Check that the solution is identical to ITA's solution:
 ```bash
 ~/ascii-amazement$ lein run -- -i resources/mazes/input6.txt -o test-output.txt && \
                    diff test-output.txt resources/mazes/output6.txt
+```
+
+
+Run unit-tests:
+
+```bash
+~/ascii-amazement$ lein midje
+All checks (6) succeeded.
 ```
 
 
