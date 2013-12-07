@@ -63,10 +63,10 @@
 ;;; Maze operations
 
 (defn- get-coordinates [maze-lines marker coordinate-translation]
-  (let [[line-nr idx] (->> (map (fn [line-nr]
+  (let [[line-nr idx] (->> (range (count maze-lines))
+                           (map (fn [line-nr]
                                   [line-nr (.indexOf (nth maze-lines line-nr)
-                                                     marker)])
-                                (range (count maze-lines)))
+                                                     marker)]))
                            (filter (fn [[line-nr idx]]
                                      (not= idx -1)))
                            first)
