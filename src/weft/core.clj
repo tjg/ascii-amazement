@@ -8,7 +8,8 @@
 (defn write-solution [in-path out-path]
   (let [maze (maze/read-maze in-path)
         solution (solve/solve maze)]
-    (maze/write-maze out-path maze solution)))
+    (->> (maze/format-maze maze solution)
+         (spit out-path))))
 
 (defn -main [& args]
   (let [[options args banner]
