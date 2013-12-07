@@ -67,9 +67,12 @@
                            (map (fn [line-nr]
                                   [line-nr (.indexOf (nth maze-lines line-nr)
                                                      marker)]))
+                           ;; Which line contains start/end marker?
                            (filter (fn [[line-nr idx]]
                                      (not= idx -1)))
                            first)
+        ;; Move coordinates a bit, to ITA's particular start/end
+        ;; positions.
         [line-nr idx] (coordinate-translation [line-nr idx])]
     [line-nr idx]))
 
