@@ -15,6 +15,8 @@
 
 
 ;; INTERNALS: a maze is represented internally as a vector of text lines.
+;; A coordinate is [line-number, column-number]
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Input
@@ -34,67 +36,67 @@
 (defn- divisible-by-3? [n]
   (= 0 (mod n 3)))
 
-(defn- format-path [line indices]
+(defn- format-path [line column-nrs]
   (with-out-str
-    (doseq [idx (range (count line))]
+    (doseq [col (range (count line))]
       ;; ITA's solutions use a rather odd style to depict one's path
       ;; through the maze.
-      (if (or (and (divisible-by-3? idx)
-                   (or (indices idx)
-                       (indices (dec idx))
-                       (indices (inc idx))))
-              (and (divisible-by-3? (dec idx))
-                   (or (indices idx)
-                       (indices (dec idx))
-                       (indices (dec (dec idx))))))
+      (if (or (and (divisible-by-3? col)
+                   (or (column-nrs col)
+                       (column-nrs (dec col))
+                       (column-nrs (inc col))))
+              (and (divisible-by-3? (dec col))
+                   (or (column-nrs col)
+                       (column-nrs (dec col))
+                       (column-nrs (dec (dec col))))))
         (print "X")
-        (print (.charAt line idx))))))
+        (print (.charAt line col))))))
 
 (defn format-maze
   "String representation of a maze, including one's path through it."
   [maze path-through-maze]
   (with-out-str
-    (let [maze (doseq [line-pos (range (count maze))]
-                 (let [line (maze line-pos)
-                       indices-on-line (->> path-through-maze
-                                            (filter (fn [[lp idx]]
-                                                      (= lp line-pos)))
-                                            (map second)
-                                            (into #{}))]
-                   (println (format-path line indices-on-line))))])))
+    (let [maze (doseq [line-idx (range (count maze))]
+                 (let [line (maze line-idx)
+                       column-nrs (->> path-through-maze
+                                       (filter (fn [[line-nr _]]
+                                                 (= line-nr line-idx)))
+                                       (map second)
+                                       (into #{}))]
+                   (println (format-path line column-nrs))))])))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Positions and movement
 
 (defn- get-coordinates [maze-lines marker coordinate-translation]
-  (let [[line-nr idx] (->> (range (count maze-lines))
-                           (map (fn [line-nr]
-                                  [line-nr (.indexOf (nth maze-lines line-nr)
-                                                     marker)]))
-                           ;; Which line contains start/end marker?
-                           (filter (fn [[line-nr idx]]
-                                     (not= idx -1)))
-                           first)
+  (let [[line-nr col-nr] (->> (range (count maze-lines))
+                              (map (fn [line-nr]
+                                     [line-nr (.indexOf (nth maze-lines line-nr)
+                                                        marker)]))
+                              ;; Which line contains start/end marker?
+                              (filter (fn [[line-nr col-nr]]
+                                        (not= col-nr -1)))
+                              first)
         ;; Move coordinates a bit, to ITA's particular start/end
         ;; positions.
-        [line-nr idx] (coordinate-translation [line-nr idx])]
-    [line-nr idx]))
+        [line-nr col-nr] (coordinate-translation [line-nr col-nr])]
+    [line-nr col-nr]))
 
 (defn start-coordinates [maze-lines]
   (let [start-marker "Start|"]
     (get-coordinates maze-lines
                      start-marker
-                     (fn [[line-nr idx]]
+                     (fn [[line-nr col-nr]]
                        [(dec line-nr)
-                        (+ idx (count start-marker))]))))
+                        (+ col-nr (count start-marker))]))))
 
 (defn end-coordinates [maze-lines]
   (let [start-marker "ITA"]
     (get-coordinates maze-lines
                      start-marker
-                     (fn [[line-nr idx]]
-                       [(inc line-nr) (dec idx)]))))
+                     (fn [[line-nr col-nr]]
+                       [(inc line-nr) (dec col-nr)]))))
 
 (defn coordinate- [[y0 x0] [y1 x1]]
   [(- y0 y1) (- x0 x1)])
@@ -102,9 +104,9 @@
 (defn- coordinate+ [[y0 x0] [y1 x1]]
   [(+ y0 y1) (+ x0 x1)])
 
-(defn- char-at [maze [line-nr idx]]
+(defn- char-at [maze [line-nr col-nr]]
   (nth (nth maze line-nr)
-       idx))
+       col-nr))
 
 (defn- move [maze pos step-1-offset step-2-offset test-steps-for-legality]
   (try
@@ -143,7 +145,10 @@
           (and (#{\space \_} step-1)
                (#{\space \_} step-2)))))
 
-(defn possible-moves [maze pos]
+(defn possible-moves
+  "Sequence of coordinates, representing the legal moves in the maze
+  at pos."
+  [maze pos]
   (let [moves (->> [up down left right]
                    (map #(% maze pos))
                    (filter identity))]
