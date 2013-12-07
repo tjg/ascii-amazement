@@ -4,9 +4,11 @@ Solution to ITA Software's ["ASCII A-maze-ment"
 puzzle](http://www.itasoftware.com/careers/puzzle_archive.html).
 
 It solves ASCII mazes like this:
+
 ![alt text](https://github.com/tjg/ascii-amazement/raw/master/resources/images/puzzle_archive_ascii_top.gif "Unsolved Maze")
 
 Its output looks like:
+
 ![alt text](https://github.com/tjg/ascii-amazement/raw/master/resources/images/puzzle_archive_ascii_lower.gif "Solved Maze")
 
 
