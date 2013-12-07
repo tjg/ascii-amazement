@@ -43,7 +43,11 @@
 (defn- breadth-first-search [start goal? children-fn]
   (search queue start goal? children-fn))
 
-(defn path [node]
+(defn path
+  "Given a solution vertex from depth-first-search or
+   breadth-first-search, returns a seq of that solution vertex and its
+   ancestors, in last-visited-first order."
+  [node]
   (loop [curr node
          acc []]
     (if (empty? curr)

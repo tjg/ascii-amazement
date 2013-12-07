@@ -4,7 +4,9 @@
             [weft.maze :as maze]))
 
 
-(defn solve [maze]
+(defn solve
+  "Given a maze, return a path through it which solves it."
+  [maze]
   (search/path
    (search/depth-first-search (maze/start-coordinates maze)
                               (fn [pos]

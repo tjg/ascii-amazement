@@ -3,7 +3,9 @@
             [clojure.java.io :as io]))
 
 
-(defn read-maze [path]
+(defn read-maze
+  "Read in maze object from filesystem at path."
+  [path]
   (with-open [rdr (io/reader path)]
     (->> (line-seq rdr)
          doall
@@ -15,6 +17,8 @@
 (defn- format-path [line indices]
   (with-out-str
     (doseq [idx (range (count line))]
+      ;; ITA's solutions use a rather odd style to depict one's path
+      ;; through the maze.
       (if (or (and (divisible-by-3? idx)
                    (or (indices idx)
                        (indices (dec idx))
@@ -26,7 +30,9 @@
         (print "X")
         (print (.charAt line idx))))))
 
-(defn format-maze [maze path-through-maze]
+(defn format-maze
+  "String representation of a maze, including one's path through it."
+  [maze path-through-maze]
   (with-out-str
     (let [maze (doseq [line-pos (range (count maze))]
                  (let [line (maze line-pos)
