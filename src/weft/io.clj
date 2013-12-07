@@ -124,7 +124,7 @@
   (->> (read-maze test-maze-path)
        end-coordinates)
 
-  (children test-maze (start-coordinates test-maze)))
+  (children test-maze (start-coordinates test-maze))
 
-(wall? test-maze [1 34])
-(wall? test-maze [0 34])
+  (wall? test-maze [1 34])
+  (wall? test-maze [0 34]))
