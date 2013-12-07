@@ -1,4 +1,4 @@
-(ns ascii-amazement.core-test
+(ns ascii-amazement.search-test
   (:use midje.sweet)
   (:require [ascii-amazement.search :as search]))
 

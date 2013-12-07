@@ -48,7 +48,7 @@ Run unit-tests:
 
 ```bash
 ~/ascii-amazement$ lein midje
-All checks (6) succeeded.
+All checks (8) succeeded.
 ```
 
 
