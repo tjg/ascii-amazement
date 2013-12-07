@@ -52,7 +52,8 @@
     (get-coordinates lines
                      start-marker
                      (fn [[line-nr idx]]
-                       [line-nr (+ idx (count start-marker))]))))
+                       [(dec line-nr)
+                        (+ idx (count start-marker))]))))
 
 (defn end-coordinates [lines]
   (let [start-marker "ITA"]
