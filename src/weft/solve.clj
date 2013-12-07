@@ -19,4 +19,4 @@
                                   (and (>= 1 (Math/abs line-offset))
                                        (>= 1 (Math/abs idx-offset)))))
                               (fn [pos]
-                                (maze/children maze pos)))))
+                                (maze/possible-moves maze pos)))))

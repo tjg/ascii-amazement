@@ -137,7 +137,7 @@
     (catch Exception e
       false)))
 
-(defn children [maze pos]
+(defn possible-moves [maze pos]
   (let [moves (->> [up down left right]
                    (map #(% maze pos))
                    (filter identity))]
