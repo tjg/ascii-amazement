@@ -23,9 +23,9 @@ Start|__|_____|_____|
 ```
 
 One curve-ball is the weird steps through the maze. It looks like
-someone is hopping through it. Perhaps we don't need to reproduce that
-style, but it'll certainly make testing easier to use their exact
-simple solutions.
+someone is hopping through it. Perhaps we don't need to copy that
+style, but it certainly makes testing easier, as we can use their
+sample solutions unmodified.
 
 Also, you move through visually whitespace (walls are `|` or `_`). But
 actually, you can stand on a `_`, unlike `|`. You just can't legally
@@ -36,7 +36,7 @@ walk through it.
 
 This is a puzzle, so it's in the sprit of fun. Whenever I implement
 DFS, I like to see that BFS is the same, except for using a queue
-instead of a stack.
+instead of a stack. (I don't know why; it's just nice.)
 
 So, this is an exception of my rule to eliminate dead code.
 

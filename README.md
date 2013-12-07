@@ -15,6 +15,13 @@ Its output looks like:
 
 
 
+## Implementation walkthrough
+
+[Explananation
+here.](https://github.com/tjg/ascii-amazement/blob/master/doc/intro.md)
+
+
+
 ## Usage
 
 Get help:
