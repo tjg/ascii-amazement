@@ -1,7 +1,15 @@
 (ns weft.maze
+  "Maze operations.
+
+   Main functions:
+   * I/O
+   * representing maze
+   * moving through maze legally"
   (:require [clojure.pprint :as pprint :refer [pprint cl-format]]
             [clojure.java.io :as io]))
 
+
+;; INTERNALS: a maze is represented internally as a vector of text lines.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Input

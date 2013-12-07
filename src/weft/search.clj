@@ -1,4 +1,10 @@
 (ns weft.search
+  "Graph searches.
+
+   Main functions:
+   * Depth first search
+   * Breadth first search
+   * Get ancestors of graph traversal."
   (:require [clojure.pprint :as pprint :refer [pprint cl-format]]
             [clojure.set    :as set]))
 
