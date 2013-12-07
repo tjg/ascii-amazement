@@ -9,7 +9,7 @@
           expected-output-file (format "resources/mazes/output%s.txt" n)
           expected-output (slurp expected-output-file)]
       (fact "Solves maze exactly as ITA did"
-        (core/write-solution expected-input-file "out.txt") => irrelevant
+        (#'core/write-solution expected-input-file "out.txt") => irrelevant
         (provided
           (spit "out.txt" expected-output) => irrelevant :times 1)))))
 
