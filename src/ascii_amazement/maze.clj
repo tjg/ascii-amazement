@@ -56,11 +56,10 @@
   "String representation of a maze, including one's path through it."
   [maze path-through-maze]
   (with-out-str
-    (let [maze (doseq [line-idx (range (count maze))]
-                 (let [line (maze line-idx)
-                       column-nrs (->> path-through-maze
-                                       (filter (fn [[line-nr _]]
-                                                 (= line-nr line-idx)))
+    (let [path-per-line-nr (group-by first path-through-maze)
+          maze (doseq [line-nr (range (count maze))]
+                 (let [line (maze line-nr)
+                       column-nrs (->> (path-per-line-nr line-nr)
                                        (map second)
                                        (into #{}))]
                    (println (format-path line column-nrs))))])))
