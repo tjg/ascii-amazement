@@ -56,3 +56,6 @@ All checks (6) succeeded.
 ## License
 
 Copyright © 2013 Tj Gabbour
+
+Distributed under the Eclipse Public License either version 1.0 or (at
+your option) any later version.

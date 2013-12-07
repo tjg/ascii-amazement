@@ -1,6 +1,6 @@
 (defproject ascii-amazement "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :description "ASCII-art Maze solver"
+  :url "https://github.com/tjg/ascii-amazement"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :main ascii-amazement.core
