@@ -36,7 +36,7 @@ Solve one of ITA's sample puzzles; save it to `test-output.txt`:
 ```
 
 
-Check that the solution is identical to ITA's solution:
+Check that a solution is identical to ITA's solution:
 
 ```bash
 ~/ascii-amazement$ lein run -- -i resources/mazes/input6.txt -o test-output.txt && \
