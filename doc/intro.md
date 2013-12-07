@@ -38,7 +38,7 @@ This is a puzzle, so it's in the sprit of fun: Whenever I implement
 DFS, I like to see that BFS is the same, except for using a queue
 instead of a stack. (I don't know why; it's just nice to see.)
 
-So, this is an exception of my rule to eliminate dead code.
+So, this is a benign exception of my rule to eliminate dead code.
 
 
 **Multiple mazes in one file?**
