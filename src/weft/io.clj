@@ -10,7 +10,7 @@
          doall
          (into (vector)))))
 
-(defn get-coordinates [marker coordinate-translation lines]
+(defn get-coordinates [lines marker coordinate-translation]
   (let [[line-nr idx] (->> (map (fn [line-nr]
                                   [line-nr (.indexOf (nth lines line-nr)
                                                      marker)])
@@ -23,17 +23,17 @@
 
 (defn start-coordinates [lines]
   (let [start-marker "Start|"]
-    (get-coordinates start-marker
+    (get-coordinates lines
+                     start-marker
                      (fn [[line-nr idx]]
-                       [line-nr (+ idx (count start-marker))])
-                     lines)))
+                       [line-nr (+ idx (count start-marker))]))))
 
 (defn end-coordinates [lines]
   (let [start-marker "ITA"]
-    (get-coordinates start-marker
+    (get-coordinates lines
+                     start-marker
                      (fn [[line-nr idx]]
-                       [(inc line-nr) (dec idx)])
-                     lines)))
+                       [(inc line-nr) (dec idx)]))))
 
 
 (comment
