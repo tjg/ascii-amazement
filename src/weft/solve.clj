@@ -3,6 +3,7 @@
             [weft.search :as search]
             [weft.maze :as maze]))
 
+
 (defn solve [maze]
   (search/path
    (search/depth-first-search (maze/start-coordinates maze)
@@ -10,6 +11,9 @@
                                 (let [[line-offset idx-offset]
                                       (maze/coordinate- pos
                                                         (maze/end-coordinates maze))]
+                                  ;; Since we move 2 text characters
+                                  ;; at a time, we only need to be
+                                  ;; within 1 char of goal.
                                   (and (>= 1 (Math/abs line-offset))
                                        (>= 1 (Math/abs idx-offset)))))
                               (fn [pos]

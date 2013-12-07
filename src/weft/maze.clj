@@ -2,7 +2,6 @@
   (:require [clojure.pprint :as pprint :refer [pprint cl-format]]
             [clojure.java.io :as io]))
 
-(set! *print-length* 10)
 
 (defn read-maze [path]
   (with-open [rdr (io/reader path)]
@@ -10,10 +9,10 @@
          doall
          (into (vector)))))
 
-(defn divisible-by-3? [n]
+(defn- divisible-by-3? [n]
   (= 0 (mod n 3)))
 
-(defn print-path [line indices]
+(defn- format-path [line indices]
   (with-out-str
     (doseq [idx (range (count line))]
       (if (or (and (divisible-by-3? idx)
@@ -36,9 +35,9 @@
                                                       (= lp line-pos)))
                                             (map second)
                                             (into #{}))]
-                   (println (print-path line indices-on-line))))])))
+                   (println (format-path line indices-on-line))))])))
 
-(defn get-coordinates [lines marker coordinate-translation]
+(defn- get-coordinates [lines marker coordinate-translation]
   (let [[line-nr idx] (->> (map (fn [line-nr]
                                   [line-nr (.indexOf (nth lines line-nr)
                                                      marker)])
@@ -67,14 +66,14 @@
 (defn coordinate- [[y0 x0] [y1 x1]]
   [(- y0 y1) (- x0 x1)])
 
-(defn coordinate+ [[y0 x0] [y1 x1]]
+(defn- coordinate+ [[y0 x0] [y1 x1]]
   [(+ y0 y1) (+ x0 x1)])
 
-(defn char-at [maze [line-nr idx]]
+(defn- char-at [maze [line-nr idx]]
   (nth (nth maze line-nr)
        idx))
 
-(defn down [maze pos]
+(defn- down [maze pos]
   (try
     (let [step-0 (char-at maze pos)
           step-1 (char-at maze (coordinate+ pos [1 0]))
@@ -89,7 +88,7 @@
     (catch Exception e
       false)))
 
-(defn up [maze pos]
+(defn- up [maze pos]
   (try
     (let [step-0 (char-at maze pos)
           step-1 (char-at maze (coordinate+ pos [-1 0]))
@@ -102,7 +101,7 @@
     (catch Exception e
       false)))
 
-(defn left [maze pos]
+(defn- left [maze pos]
   (try
     (let [step-0 (char-at maze pos)
           step-1 (char-at maze (coordinate+ pos [0 -1]))
@@ -117,7 +116,7 @@
     (catch Exception e
       false)))
 
-(defn right [maze pos]
+(defn- right [maze pos]
   (try
     (let [step-0 (char-at maze pos)
           step-1 (char-at maze (coordinate+ pos [0 1]))

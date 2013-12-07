@@ -5,7 +5,8 @@
             [weft.maze :as maze]
             [clojure.tools.cli :as cli :refer [cli]]))
 
-(defn write-solution [in-path out-path]
+
+(defn- write-solution [in-path out-path]
   (let [maze (maze/read-maze in-path)
         solution (solve/solve maze)]
     (->> (maze/format-maze maze solution)
