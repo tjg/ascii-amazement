@@ -3,7 +3,7 @@
   (:require [weft.core :as core]
             [weft.maze :as maze]))
 
-(facts "solves all the test mazes which ITA provided"
+(facts "Solves all the test mazes which ITA provided"
  (doseq [n (range 1 7)]
    (let [expected-input-file  (format "resources/mazes/input%s.txt"  n)
          expected-output-file (format "resources/mazes/output%s.txt" n)
