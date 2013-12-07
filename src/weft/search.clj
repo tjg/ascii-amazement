@@ -15,7 +15,7 @@
   (loop [frontier (queue-constructor (make-node start nil))
          explored #{}]
     (let [current-node (peek frontier)]
-      (cond (not frontier)
+      (cond (empty? frontier)
             nil
 
             (goal? (:item current-node))
