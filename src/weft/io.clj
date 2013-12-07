@@ -46,12 +46,15 @@
   (try
     (let [step-0 (char-at maze pos)
           step-1 (char-at maze (coordinate+ pos [1 0]))
-          step-2 (char-at maze (coordinate+ pos [2 0]))]
+          step-2 (char-at maze (coordinate+ pos [2 0]))
+          new-pos (coordinate+ pos [2 0])]
       (println [step-0 step-1 step-2])
-      (and (= step-0 \space)
-           (= step-1 \space)
-           (or (= step-2 \space)
-               (= step-2 \_))))
+      (if (and (= step-0 \space)
+               (= step-1 \space)
+               (or (= step-2 \space)
+                   (= step-2 \_)))
+        new-pos
+        false))
     (catch Exception e
       false)))
 
@@ -59,10 +62,13 @@
   (try
     (let [step-0 (char-at maze pos)
           step-1 (char-at maze (coordinate+ pos [-1 0]))
-          step-2 (char-at maze (coordinate+ pos [-2 0]))]
+          step-2 (char-at maze (coordinate+ pos [-2 0]))
+          new-pos (coordinate+ pos [-2 0])]
       (println [step-0 step-1 step-2])
-      (and (= step-1 \space)
-           (= step-2 \space)))
+      (if (and (= step-1 \space)
+               (= step-2 \space))
+        new-pos
+        false))
     (catch Exception e
       false)))
 
@@ -70,10 +76,13 @@
   (try
     (let [step-0 (char-at maze pos)
           step-1 (char-at maze (coordinate+ pos [0 -1]))
-          step-2 (char-at maze (coordinate+ pos [0 -2]))]
+          step-2 (char-at maze (coordinate+ pos [0 -2]))
+          new-pos (coordinate+ pos [0 -2])]
       (println [step-0 step-1 step-2])
-      (and (= step-1 \space)
-           (= step-2 \space)))
+      (if (and (= step-1 \space)
+               (= step-2 \space))
+        new-pos
+        false))
     (catch Exception e
       false)))
 
@@ -81,42 +90,21 @@
   (try
     (let [step-0 (char-at maze pos)
           step-1 (char-at maze (coordinate+ pos [0 1]))
-          step-2 (char-at maze (coordinate+ pos [0 2]))]
+          step-2 (char-at maze (coordinate+ pos [0 2]))
+          new-pos (coordinate+ pos [0 2])]
       (println [step-0 step-1 step-2])
-      (and (= step-1 \space)
-           (= step-2 \space)))
+      (if (and (= step-1 \space)
+               (= step-2 \space))
+        new-pos
+        false))
     (catch Exception e
       false)))
 
-
-(comment
-  (defn wall? [maze [line-nr idx]]
-    (try
-      (not (str/blank? (str (char-at [line-nr idx]))))
-      (catch Exception e
-        true)))
-
-  (defn move [maze location step1 step2]
-    (let [first-step (coordinate+ location step1)]
-      (if (wall? maze first-step)
-        nil
-        (let [second-step (coordinate+ first-step step2)]
-          (if (wall? maze second-step)
-            nil
-            second-step)))))
-
-  (defn children [lines [line-nr idx]]
-    (let [steps [[[0 1]  [0 2]]
-                 [[0 -1] [0 -2]]
-                 [[1 0]  [2 0]]
-                 [[-1 0] [-2 0]]]
-          moves (map #(apply move lines [line-nr idx] %) steps)]
-      moves))
-
-  #_(defn children [lines [line-nr idx]]
-      (let [offsets [[0 2] [0 -2] [2 0] [-2 0]]
-            moves (map #(coordinate+ [line-nr idx] %) offsets)]
-        (filter moves ))))
+(defn children [maze pos]
+  (let [moves (->> [up down left right]
+                   (map #(% maze pos))
+                   (filter identity))]
+    moves))
 
 
 (def test-maze-path "resources/mazes/input1.txt")
