@@ -50,9 +50,3 @@
       acc
       (recur (:parent curr)
              (conj acc (:item curr))))))
-
-
-(comment
-  (path (depth-first-search 0 #(= % 10) #(list (inc %))))
-  (path (depth-first-search 0 #(= % 10)
-                            #(list (inc %) (+ 3 %) (+ 5 %)))))
