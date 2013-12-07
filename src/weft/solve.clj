@@ -14,7 +14,3 @@
                                        (>= 1 (Math/abs idx-offset)))))
                               (fn [pos]
                                 (maze/children maze pos)))))
-
-(comment
-  (let [path (solve maze/test-maze)]
-    (maze/write-maze "test-output.txt" maze/test-maze path)))

@@ -137,23 +137,3 @@
                    (map #(% maze pos))
                    (filter identity))]
     moves))
-
-
-(def test-maze-path "resources/mazes/input1.txt")
-
-(def test-maze (read-maze test-maze-path))
-
-(comment
-  (doseq [line (read-maze test-maze-path)]
-    (println line))
-
-  (->> (read-maze test-maze-path)
-       start-coordinates)
-
-  (->> (read-maze test-maze-path)
-       end-coordinates)
-
-  (children test-maze (start-coordinates test-maze))
-
-  (wall? test-maze [1 34])
-  (wall? test-maze [0 34]))
