@@ -16,6 +16,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Commandline entrypoint
 
+(def IO-ERROR-EXIT-CODE 74)
+
 (defn -main [& args]
   (let [[options args banner]
         (cli args
@@ -30,7 +32,7 @@
           (not (.exists (java.io.File. (:input options))))
           (binding [*out* *err*]
             (println "Error:" (:input options) "doesn't exist.")
-            (System/exit 74))
+            (System/exit IO-ERROR-EXIT-CODE))
 
           (and (.getParentFile (java.io.File. (:output options)))
                (not (.exists (.getParentFile (java.io.File. (:output options))))))
@@ -38,7 +40,7 @@
             (println "Error: output directory"
                      (.getParent (java.io.File. (:output options)))
                      "doesn't exist.")
-            (System/exit 74))
+            (System/exit IO-ERROR-EXIT-CODE))
 
           :else
           (write-solution (:input options) (:output options))))
