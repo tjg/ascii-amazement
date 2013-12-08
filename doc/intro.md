@@ -44,7 +44,7 @@ So, this is a benign exception of my rule to eliminate dead code.
 
 As for preferring DFS, it has better memory consumption than BFS and
 all mazes are finite. (ITA states, *"The input is guaranteed to be a
-well-formed maze and to have a unique solution path..."*)
+well-formed maze..."*)
 
 
 **Multiple mazes in one file?**
